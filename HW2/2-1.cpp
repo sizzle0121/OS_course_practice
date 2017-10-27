@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <queue>
 #include <sstream>
@@ -9,11 +10,16 @@ int main(){
 	int N;
 	std::queue <int> q;
 	std::vector <int> w, trard;
+	std::fstream file_in;
 
-	std::cin >> N;
+
+	file_in.open("Q1.txt", std::ios::in);
+	file_in >> N;
+	//std::cin >> N;
 	for(int i=0; i<N; ++i){
 		int tmp;
-		std::cin >> tmp;
+		file_in >> tmp;
+		//std::cin >> tmp;
 		q.push(tmp);
 		w.push_back(0);
 		trard.push_back(0);
@@ -48,5 +54,6 @@ int main(){
 	printf("\nAverage waiting time : %.7f\n", avg_w/N);
 	printf("Average turnaround time : %.7f\n", avg_trard/N);
 
+	file_in.close();
 	return 0;
 }
