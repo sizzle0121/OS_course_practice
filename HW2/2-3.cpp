@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <queue>
 #include <vector>
 #include <string>
@@ -21,19 +22,25 @@ struct process{
 int main(){
 	int N, _N;
 	unsigned int counter = 0;
+	std::fstream file_in;
 	std::priority_queue <process> q;
 	std::vector <process> p;
 
-	std::cin >> N;
+
+	file_in.open("Q3.txt", std::ios::in);
+	file_in >> N;
+	//std::cin >> N;
 	_N = N;
 	for(int i=0; i<N; ++i){
 		int tmp;
-		std::cin >> tmp;
+		file_in >> tmp;
+		//std::cin >> tmp;
 		p.push_back(process(i+1, tmp));
 	}
 	for(int i=0; i<N; ++i){
 		int tmp;
-		std::cin >> tmp;
+		file_in >> tmp;
+		//std::cin >> tmp;
 		p[i].BT = tmp;
 		p[i].bt = tmp;
 	}
@@ -74,7 +81,7 @@ int main(){
 		if(remain_bt != 0)	remain_bt--;
 		counter++;
 	}
-	puts("");
+	//puts("");
 
 
 	std::cout << "Process    Waiting Time    Turnaround Time\n";
@@ -92,7 +99,7 @@ int main(){
 	}
 	printf("\nAverage waiting time : %.7f\n", avg_w/N);
 	printf("Average turnaround time : %.7f\n", avg_t/N);
-
+	file_in.close();
 
 	return 0;
 }
