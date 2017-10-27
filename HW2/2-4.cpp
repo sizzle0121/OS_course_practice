@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <queue>
 #include <vector>
 #include <string>
@@ -35,23 +36,29 @@ void mid_q();
 void low_q();
 
 int main(){
-	std::cin >> N;
+	std::fstream file_in;
+	file_in.open("Q4.txt", std::ios::in);
+	file_in >> N;
+	//std::cin >> N;
 	_N = N;
 	for(int i=0; i<N; ++i){
 		int tmp;
-		std::cin >> tmp;
+		file_in >> tmp;
+		//std::cin >> tmp;
 		p.push_back(process(i+1, tmp));
 	}
 	for(int i=0; i<N; ++i){
 		int tmp;
-		std::cin >> tmp;
+		file_in >> tmp;
+		//std::cin >> tmp;
 		p[i].BT = tmp;
 		p[i].bt = tmp;
 	}
-	std::cin >> T1 >> T2;
+	file_in >> T1 >> T2;
+	//std::cin >> T1 >> T2;
 
 	high_q();
-	printf("\n");
+	//printf("\n");
 	
 	std::cout << "Process    Waiting Time    Turnaround Time\n";
 	for(int i=0; i<N; ++i){
@@ -68,6 +75,8 @@ int main(){
 	}
 	printf("\nAverage waiting time : %.7f\n", avg_w/N);
 	printf("Average turnaround time : %.7f\n", avg_t/N);
+
+	file_in.close();
 	return 0;
 }
 
@@ -207,6 +216,7 @@ void low_q(){
 				back_to_q1 = true;
 			}
 		}
+		if(current_pid == -1 && back_to_q1)	high_q();
 
 		if(remain_bt == 0){
 			if(current_pid >= 0){
